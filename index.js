@@ -1,4 +1,5 @@
 const express = require("express")
+require('dotenv').config();
 const app = express();
 const  http = require("http")
 const path = require("path")
@@ -7,6 +8,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const connectedUsers = {};
 const groups = [];
+const PORT = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
    
@@ -94,6 +96,6 @@ app.get('/', (req, res) => {
     res.sendFile('/public/index.html');
   });
 
-server.listen(9000,()=>{
-    console.log("server started at port 9000")
+server.listen(PORT,()=>{
+    console.log(`server started at port ${PORT}`);
 });
