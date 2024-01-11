@@ -36,6 +36,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const disconnectedUsername = connectedUsers[socket.id];
         delete connectedUsers[socket.id];
+        if(Object.keys(connectedUsers).length === 0){
+          groups.length = 0;
+        }
         io.emit('User-Disconnected', `${disconnectedUsername} Disconnected`);
         socket.broadcast.emit('onlineUser',{connectedUsers});
     });
