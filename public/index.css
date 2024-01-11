@@ -22,6 +22,11 @@ body {
 #footer{
     background: #f0f2f5;
 }
+
+#formDiv{
+    display: flex;
+    align-items: center;
+}
 #form {
     background: #f0f2f5;
     padding: 0.25rem;
@@ -32,6 +37,7 @@ body {
     height: 4rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
+    flex :1;
 }
 
 #input {
@@ -63,7 +69,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     margin: 1% 2%;
-    max-width: 70%;
+    /* max-width: 70%; */
     width: max-content;
 }
 
@@ -73,7 +79,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     margin: 1% 2%;
-    max-width: 70%;
+    /* max-width: 70%; */
     width: max-content;
     margin-left: auto;
 }
@@ -330,5 +336,52 @@ body {
 
 .senderName{
     color:#06cf9c;
-    
+
+}
+
+#attachment{
+    margin: 0 10px;
+    color :#54656f;
+}
+
+.file{
+    width: 330px;
+    height: 253px;
+}
+
+.timeTickFile{
+    position: absolute;
+    padding: 0px;
+    top: 243px;
+    margin-left: 10px;
+    left: 266px;
+}
+
+#filepreview{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backdrop-filter: blur(53px);
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filePreviewFullScreen{
+    width: 80%;
+    height: 80%;
+}
+
+#previewOptions{
+    position: absolute;
+    left: 80%;
+    top: 12%;
+}
+
+.hover-element {
+    transition: transform 0.3s ease-in-out;
+}
+.hover-element:hover {
+    transform: scale(1.2); 
 }

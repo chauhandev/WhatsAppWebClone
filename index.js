@@ -11,11 +11,13 @@ const groups = [];
 io.on('connection', (socket) => {
    
     socket.on('privateMessage', (data) => {
+          console.log("privateMessage");
             io.to(data.recepient).emit('privateMessage', {
                 sender: socket.id,
                 senderName:connectedUsers[socket.id],
                 message: data.msg,
-                time: data.time
+                time: data.time,
+                file: data.file
             });
      }
     ); 
@@ -49,7 +51,7 @@ io.on('connection', (socket) => {
     socket.on('chat message', (data) => {
         const group = groups.find(group => String(group.id)=== data.groupId)
         // socket.to(Number(msg.groupId)).emit('chat message',data); 
-        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name ,senderName :connectedUsers[socket.id],time:data.time});   
+        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name ,senderName :connectedUsers[socket.id],time:data.time,file: data.file});   
      }
     ); 
     socket.on('createGroup', (data) => {
