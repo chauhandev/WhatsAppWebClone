@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
                 sender: socket.id,
                 senderName:connectedUsers[socket.id],
                 message: data.msg,
+                time: data.time
             });
      }
     ); 
@@ -48,7 +49,7 @@ io.on('connection', (socket) => {
     socket.on('chat message', (data) => {
         const group = groups.find(group => String(group.id)=== data.groupId)
         // socket.to(Number(msg.groupId)).emit('chat message',data); 
-        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name });   
+        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name ,senderName :connectedUsers[socket.id],time:data.time});   
      }
     ); 
     socket.on('createGroup', (data) => {

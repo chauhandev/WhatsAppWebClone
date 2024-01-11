@@ -311,3 +311,24 @@ body {
     background-color:#f0f2f5;
     color: #008069;
 }
+
+.time{
+    font-size: 10.2px;
+    color: #667781;
+}
+
+.tick{
+    color:#53bdeb;
+}
+
+.timeTick{
+    position: relative;
+    padding: 0px;
+    top: 4px;
+    margin-left: 10px;
+}
+
+.senderName{
+    color:#06cf9c;
+    
+}
