@@ -385,3 +385,17 @@ body {
 .hover-element:hover {
     transform: scale(1.2); 
 }
+
+.menuIcon{
+    display: flex;
+    margin-left: 15%;
+}
+
+.otherProfile-picture {
+    width: 49px;
+    height: 49px;
+    border-radius: 50px;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid grey;
+}

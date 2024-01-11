@@ -9,6 +9,7 @@
 
 <body>
     <div id="mainDiv" style="width: 100vw; height: 100vh; background: #f0f2f5;">
+        <input style="display: none;" type="file" id="uploadInput" accept="image/*" onchange="previewImage(event)">
         <div id="signUp">
             <div style="color: #008069;font-weight: bold;">Profile info</div>
             <div>Please provide your name and an optional profile photo</div>
@@ -17,7 +18,6 @@
                     <div class="profile-picture"  onclick="triggerUpload()">
                         <img src="images/defaultImage.svg" alt="Profile Picture" id="previewImage">
                     </div>
-                    <input style="display: none;" type="file" id="uploadInput" accept="image/*" onchange="previewImage(event)">
                 </div>
                 <input type="text" id="username" class="inputBox" style="padding-right: 30px; width: 180px;" placeholder="Enter-Name" maxlength="20" onfocus="toggleCharCount(true)" onblur="toggleCharCount(false)" oninput="updateCharCount()" />
                 <span  id="charCount" style="display: none; font-size: small; margin-left: -44px; margin-bottom: 4px; width: 32px;">0/20</span>
@@ -37,10 +37,11 @@
         <div id="container" style="display:none;">
             <div id="userPane" style ="display:flex; flex-direction: column;">
                 <div id = "header">
-                    <div class="profile-picture">
-                        <img src="images/defaultImage.svg" alt="Profile Picture" id="profilePicture">
+                    <div class="profile-picture" onclick="triggerUpload()">
+                        <img src="images/defaultImage.svg" alt="Profile Picture" id="profilePicture" >
                     </div>
                     <div id ="headerUserName"></div>
+                    <span data-icon="menu" class="menuIcon"><svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>menu</title><path fill="currentColor" d="M12,7c1.104,0,2-0.896,2-2c0-1.105-0.895-2-2-2c-1.104,0-2,0.894-2,2 C10,6.105,10.895,7,12,7z M12,9c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,9.895,13.104,9,12,9z M12,15 c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,15.894,13.104,15,12,15z"></path></svg></span>
                 </div>
                 <div id="onlineUsers" class="list">
                     <div id="onlineText" class="chatTypeHeader"></div>

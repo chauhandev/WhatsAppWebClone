@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
           console.log("privateMessage");
             io.to(data.recepient).emit('privateMessage', {
                 sender: socket.id,
-                senderName:connectedUsers[socket.id],
+                senderName:connectedUsers[socket.id].userName,
                 message: data.msg,
                 time: data.time,
                 file: data.file
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
     // Notify all connected clients when a user disconnects
     socket.on('disconnect', () => {
-        const disconnectedUsername = connectedUsers[socket.id];
+        const disconnectedUsername = connectedUsers[socket.id].userName;
         delete connectedUsers[socket.id];
         if(Object.keys(connectedUsers).length === 0){
           groups.length = 0;
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
      // Notify all connected clients when a user typing
      socket.on('typing-status', (msg) => {
         if(msg.status){
-            socket.broadcast.emit('typing-status', {status:true,msg :`${connectedUsers[socket.id]} is typing...`});
+            socket.broadcast.emit('typing-status', {status:true,msg :`${connectedUsers[socket.id].userName} is typing...`});
         }
         else{
             socket.broadcast.emit('typing-status', {status:false,msg :""}); 
@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
     socket.on('chat message', (data) => {
         const group = groups.find(group => String(group.id)=== data.groupId)
         // socket.to(Number(msg.groupId)).emit('chat message',data); 
-        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name ,senderName :connectedUsers[socket.id],time:data.time,file: data.file});   
+        socket.to(Number(data.groupId)).emit('chat message', {message : data.msg, groupId : data.groupId ,name :group.name ,senderName :connectedUsers[socket.id].userName,time:data.time,file: data.file});   
      }
     ); 
     socket.on('createGroup', (data) => {
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
             {
                existingGroup.members.push(socket.id);
                socket.join(existingGroup.id);
-               socket.to(existingGroup.id).emit('userJoinedGroup', { groupName: existingGroup.name, groupId: existingGroup.id, joinedUserName: connectedUsers[socket.id] });
+               socket.to(existingGroup.id).emit('userJoinedGroup', { groupName: existingGroup.name, groupId: existingGroup.id, joinedUserName: connectedUsers[socket.id].userName });
                io.emit('groupsAvailable', groups);
             }
         } else {
