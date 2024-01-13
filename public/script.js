@@ -632,7 +632,7 @@ function closePreview(){
 function downloadFile(){
          // Get the image element
          const fullScreenPreviewElement = document.getElementById("filepreview");
-         fullScreenPreviewElement.style.display = "none";
+        //  fullScreenPreviewElement.style.display = "none";
         
          var image = fullScreenPreviewElement.getElementsByTagName("img")[0];
 
