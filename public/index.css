@@ -147,13 +147,13 @@ body {
     display: none;
     flex-direction: column;
     flex: 1;
-    overflow-y: auto; /* Add a scrollbar if content overflows vertically */
+    overflow-y: auto; 
     background-color: #efeae2;
 }
 
 #userPane {
-    flex: 0 0 22%;/* Allow the height to adjust based on content */
-    overflow-y: auto; /* Add a scrollbar if content overflows vertically */
+    flex: 0 0 22%;
+    overflow-y: auto; 
     background-color: white;
 }
 

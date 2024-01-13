@@ -10,9 +10,22 @@ var currentChatGroup = "";
 var UserPrivateChat = [];
 var GroupChat = [];
 var currentChatType ="";
+
 const ChatType = {
     PRIVATE: 'private',
     GROUP: 'group'
+};
+const Actions = {
+    PRIVATECHAT: 'privatechat',
+    GROUPCHAT: 'groupchat',
+    USERJOINED: 'userjoined',
+    NEWMEMBERJOINEDGROUP:'newmemberjoined',
+    USERDISCONNECTED: 'userdisconnected',
+    USERSONLINE:'usersonline',
+    AVAILABLEGROUPS: 'availablegroups',
+    TYPINGSTATUS: 'typingstatus',
+    JOINGROUP:'joingroup',
+    CREATEGROUP:'creategroup'
 };
   
 
@@ -31,10 +44,10 @@ function submitUsername() {
         const profilePicture = document.getElementById("profilePicture");
         var imageSrc = profilePicture.getAttribute("src")
         // Notify server about the user's name
-        socket.emit("User-Joined", {userName:username, profilePicture:imageSrc});
+        socket.emit(Actions.USERJOINED, {userName:username, profilePicture:imageSrc});
        
         // handle chat messages received from the server
-        socket.on("chat message", function (data) {
+        socket.on(Actions.GROUPCHAT, function (data) {
             GroupChat[data.groupId] = GroupChat[data.groupId] || [];
             GroupChat[data.groupId].push({ messages: data.message, type: "received",time: data.time,senderName:data.senderName,file:data.file});
             if (currentChatGroup != data.groupId) {
@@ -87,7 +100,7 @@ function submitUsername() {
         
         });
         // handle private messages received from the server
-        socket.on("privateMessage", function (data) {
+        socket.on(Actions.PRIVATECHAT, function (data) {
             UserPrivateChat[data.sender] = UserPrivateChat[data.sender] || [];
             UserPrivateChat[data.sender].push({ messages: data.message, type: "received",time:data.time,file:data.file});
             if (currentlyChattingUser != data.sender) {
@@ -139,7 +152,7 @@ function submitUsername() {
         
 
         // handle new user joined message received from server
-        socket.on("userJoinedGroup", (data) => {
+        socket.on(Actions.NEWMEMBERJOINEDGROUP, (data) => {
             GroupChat[data.groupId] = GroupChat[data.groupId] || [];
             GroupChat[data.groupId].push({ messages: `${data.joinedUserName} Joined`, type: "userJoined",});
 
@@ -153,7 +166,7 @@ function submitUsername() {
         });
 
         // handle new user joined message received from server
-        socket.on("User-Disconnected", (msg) => {
+        socket.on(Actions.USERDISCONNECTED, (msg) => {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.textContent = msg;
@@ -162,7 +175,7 @@ function submitUsername() {
         });
 
         //handle if user is typing status
-        socket.on("typing-status", (data) => {
+        socket.on(Actions.TYPINGSTATUS, (data) => {
             const typingStatus = document.getElementById("typingStatus");
             typingStatus.textContent = data.msg;
             if (data.status) 
@@ -172,7 +185,7 @@ function submitUsername() {
         });
 
         //handle if online users is typing status
-        socket.on("onlineUser", (data) => {
+        socket.on(Actions.USERSONLINE, (data) => {
             const onlineUsers = document.getElementById("onlineUserList");
             while (onlineUsers.firstChild) {
                 onlineUsers.removeChild(onlineUsers.firstChild);
@@ -240,7 +253,7 @@ function submitUsername() {
             }
         });
 
-        socket.on("groupsAvailable", (data) => {
+        socket.on(Actions.AVAILABLEGROUPS, (data) => {
             const onlineUsers = document.getElementById("activeGroupList");
             while (onlineUsers.firstChild) {
                 onlineUsers.removeChild(onlineUsers.firstChild);
@@ -294,7 +307,7 @@ function submitUsername() {
 
                         const div = document.getElementById("headerChatName");
                         div.textContent =  divParent.getAttribute("data-group-name").charAt(0).toUpperCase() + divParent.getAttribute("data-group-name").slice(1);
-                        socket.emit("Join-Group", {groupId: currentChatGroup});
+                        socket.emit(Actions.JOINGROUP, {groupId: currentChatGroup});
                     });
             }
         });
@@ -314,13 +327,13 @@ function createChat(input) {
         
         if(currentChatType === ChatType.PRIVATE) {
             var data = { recepient: currentlyChattingUser, msg: input.value ,time :currentTimeString ,file :""};
-            socket.emit("privateMessage", data);
+            socket.emit(Actions.PRIVATECHAT, data);
             UserPrivateChat[ currentlyChattingUser ] = UserPrivateChat[ currentlyChattingUser ] || [];
             UserPrivateChat[ currentlyChattingUser ].push({messages: data.msg, type: "sent", time :currentTimeString});
         }
         else{
             var data = { groupId: currentChatGroup, msg: input.value ,time :currentTimeString ,file:""};
-            socket.emit('chat message', data);
+            socket.emit(Actions.GROUPCHAT, data);
             GroupChat[ currentChatGroup ] = GroupChat[ currentChatGroup ] || [];
             GroupChat[ currentChatGroup ].push({messages: data.msg, type: "sent", time :currentTimeString});
         }
@@ -414,10 +427,10 @@ function handleTypingStatus() {
         if (typingTimer !== undefined) {
             clearTimeout(typingTimer);
         }
-        socket.emit("typing-status", { status: true });
+        socket.emit(Actions.TYPINGSTATUS, { status: true });
 
         typingTimer = setTimeout(function () {
-            socket.emit("typing-status", { status: false });
+            socket.emit(Actions.TYPINGSTATUS, { status: false });
         }, 1000);
     };
 }
@@ -558,7 +571,7 @@ function createGroup(){
     const groupName = input.value;
     if(groupName){
         const msg = {groupName: groupName};
-        socket.emit('createGroup',msg);
+        socket.emit(Actions.CREATEGROUP,msg);
     
         input.value = "";
     }
@@ -581,12 +594,12 @@ function sendFile(event){
   
           if(currentChatType === ChatType.PRIVATE) {
             const data = { recepient: currentlyChattingUser, msg: "" ,time :currentTimeString ,file:fileData};
-            socket.emit("privateMessage", data);
+            socket.emit(Actions.PRIVATECHAT, data);
 
           }
           else{
             const data = { groupId: currentChatGroup, msg: "" ,time :currentTimeString ,file:fileData};
-            socket.emit("chat message", data);
+            socket.emit(Actions.GROUPCHAT, data);
 
           }
 
