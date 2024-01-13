@@ -689,7 +689,7 @@ function handleResize() {
         if (userPane.style.display === 'none') 
             userPane.style.display = 'flex';
         else{
-            if(chatPane.style.display === 'none')
+            if(chatBox.style.display === 'none')
                emptyBox.style.display = 'flex';
         }
     }
