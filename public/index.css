@@ -266,7 +266,6 @@ body {
     border-radius: 50px;
     display: flex;
     overflow: hidden;
-    /* border: 1px solid grey; */
 }
 #previewImage{
     WIDTH: 40px;
@@ -399,3 +398,30 @@ body {
     overflow: hidden;
     border: 1px solid grey;
 }
+
+#backButton{
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    #userPane, #chatBox {
+        flex: 1;
+        width: 100%;
+    }
+    #backButton {
+        display: block;
+    }
+
+    #userPane {
+        display: flex;
+    }
+
+    #chatBox {
+        display: none;
+    }
+    #emptyBox{
+        display: none;
+    }
+}
+
+

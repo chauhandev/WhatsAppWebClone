@@ -10,6 +10,7 @@ var currentChatGroup = "";
 var UserPrivateChat = [];
 var GroupChat = [];
 var currentChatType ="";
+var MediaQuery = 768;
 
 const ChatType = {
     PRIVATE: 'private',
@@ -223,6 +224,10 @@ function submitUsername() {
                         const chatBox = document.getElementById("chatBox");
                         emptyBox.style.display = "none";
                         chatBox.style.display = "flex";
+                        if (window.innerWidth < MediaQuery) {
+                            const userPane = document.getElementById('userPane');
+                             userPane.style.display = 'none';
+                        }
 
                         var activeGroupdivs = document.getElementById("activeGroupList").getElementsByClassName("chat");
                         for (var i = 0; i < activeGroupdivs.length; i++) {
@@ -649,4 +654,43 @@ function downloadFile(){
          link.click();
 
          document.body.removeChild(link);
+}
+
+function swithtoUsers(){
+      const chatBox = document.getElementById('chatBox');
+      chatBox.style.display = 'none';
+      const userPane = document.getElementById('userPane');
+      userPane.style.display = 'flex';
+      
+}
+
+window.addEventListener('resize', handleResize);
+
+function handleResize() {
+    let screenWidth = window.innerWidth;
+    const backButton = document.getElementById('backButton');
+    const userPane = document.getElementById('userPane');
+    const chatBox = document.getElementById('chatBox');
+    const emptyBox = document.getElementById('emptyBox');
+
+    // Check if the screen width is less than 768
+    if (screenWidth <= MediaQuery) {       
+        if (chatBox.style.display === 'flex') {
+            backButton.style.display = 'flex';  
+            userPane.style.display = 'none';         
+        }
+        else{
+            // userPane.style.display = 'none';
+            emptyBox.style.display = 'none';
+        }
+    }
+    else {       
+        backButton.style.display = 'none';
+        if (userPane.style.display === 'none') 
+            userPane.style.display = 'flex';
+        else{
+            if(chatPane.style.display === 'none')
+               emptyBox.style.display = 'flex';
+        }
+    }
 }
