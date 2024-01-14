@@ -680,7 +680,6 @@ function handleResize() {
             userPane.style.display = 'none';         
         }
         else{
-            // userPane.style.display = 'none';
             emptyBox.style.display = 'none';
         }
     }

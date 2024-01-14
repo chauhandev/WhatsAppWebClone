@@ -387,7 +387,7 @@ body {
 
 .menuIcon{
     display: flex;
-    margin-left: 15%;
+    margin-left: auto;
 }
 
 .otherProfile-picture {
@@ -401,6 +401,9 @@ body {
 
 #backButton{
     display: none;
+    height: 40px;
+    width: 40px;
+    color: #54656f;
 }
 
 @media only screen and (max-width: 768px) {
