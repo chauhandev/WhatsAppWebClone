@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WhatsAppWebClone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="index.css" type="text/css" title="">
+</head>
+
+<body>
+    <div id="mainDiv" style="width: 100vw; height: 100vh; background: #f0f2f5;">
+        <input style="display: none;" type="file" id="uploadInput" accept="image/*" onchange="previewImage(event)">
+        <div id="signUp">
+            <div style="color: #008069;font-weight: bold;">Profile info</div>
+            <div>Please provide your name and an optional profile photo</div>
+            <div style="display: flex; flex-direction: row; padding: 20px; gap:10px; align-items: center; ">
+                <div>
+                    <div class="profile-picture"  onclick="triggerUpload()">
+                        <img src="images/defaultImage.svg" alt="Profile Picture" id="previewImage">
+                    </div>
+                </div>
+                <input type="text" id="username" class="inputBox" style="padding-right: 30px; width: 180px;" placeholder="Enter-Name" maxlength="20" onfocus="toggleCharCount(true)" onblur="toggleCharCount(false)" oninput="updateCharCount()" />
+                <span  id="charCount" style="display: none; font-size: small; margin-left: -44px; margin-bottom: 4px; width: 32px;">0/20</span>
+            </div>
+            <button class ="btn" onclick="submitUsername()">Next</button>
+        </div>
+        <div id="filepreview" style="display: none;">
+            <div id="previewOptions">
+                <span onclick="downloadFile()">
+                    <svg class="hover-element"  viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>Download</title><path fill="currentColor" d="M18.9,10.3h-4V4.4H9v5.9H5l6.9,6.9L18.9,10.3z M5.1,19.2v2H19v-2H5.1z"></path></svg>
+                </span>
+                <span onclick="closePreview()">
+                    <svg class="hover-element"  viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>Close Preview</title><path fill="currentColor" d="M19.8,5.8l-1.6-1.6L12,10.4L5.8,4.2L4.2,5.8l6.2,6.2l-6.2,6.2l1.6,1.6l6.2-6.2l6.2,6.2l1.6-1.6L13.6,12 L19.8,5.8z"></path></svg>
+                </span>
+            </div>            
+        </div>
+        <div id="container" style="display:none;">
+            <div id="userPane" style ="display:flex; flex-direction: column;">
+                <div id = "header">
+                    <div class="profile-picture" onclick="triggerUpload()">
+                        <img src="images/defaultImage.svg" alt="Profile Picture" id="profilePicture" >
+                    </div>
+                    <div id ="headerUserName"></div>
+                    <span data-icon="menu" class="menuIcon"><svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>menu</title><path fill="currentColor" d="M12,7c1.104,0,2-0.896,2-2c0-1.105-0.895-2-2-2c-1.104,0-2,0.894-2,2 C10,6.105,10.895,7,12,7z M12,9c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,9.895,13.104,9,12,9z M12,15 c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,15.894,13.104,15,12,15z"></path></svg></span>
+                </div>
+                <div id="onlineUsers" class="list">
+                    <div id="onlineText" class="chatTypeHeader"></div>
+                    <div id="onlineUserList" class="list"></div>
+                </div>
+                <div id="ActiveGroups">
+                    <div id="onlineText" class="chatTypeHeader">Groups
+                        <div id="createGroup">
+                                <input id="createGroupInput" class = "createGroupinputBox" style="width: 65%;" type="text" placeholder="Enter Group Name">
+                                <button class="btn grpbtn" onclick="createGroup()">Create</button>                              
+                        </div>                     
+                    </div>
+                    
+                    <div id="activeGroupList" class="list"></div>
+                </div>
+            </div>
+            <div id="emptyBox">
+    
+            </div>
+            <div id="chatBox" >
+                <div id ="header">
+                    <div id = "backButton" onclick="swithtoUsers()">
+                        <svg class = "hover-element" height="40px" width="40px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon style="fill:currentColor;" points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg> 
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 212 212" height="40" width="40" preserveAspectRatio="xMidYMid meet" version="1.1" x="0px" y="0px" enable-background="new 0 0 212 212"><title>default-user</title><path fill="#DFE5E7" d="M106.251,0.5C164.653,0.5,212,47.846,212,106.25S164.653,212,106.25,212C47.846,212,0.5,164.654,0.5,106.25 S47.846,0.5,106.251,0.5z"></path><g><path fill="#FFFFFF" class="primary" d="M173.561,171.615c-0.601-0.915-1.287-1.907-2.065-2.955c-0.777-1.049-1.645-2.155-2.608-3.299 c-0.964-1.144-2.024-2.326-3.184-3.527c-1.741-1.802-3.71-3.646-5.924-5.47c-2.952-2.431-6.339-4.824-10.204-7.026 c-1.877-1.07-3.873-2.092-5.98-3.055c-0.062-0.028-0.118-0.059-0.18-0.087c-9.792-4.44-22.106-7.529-37.416-7.529 s-27.624,3.089-37.416,7.529c-0.338,0.153-0.653,0.318-0.985,0.474c-1.431,0.674-2.806,1.376-4.128,2.101 c-0.716,0.393-1.417,0.792-2.101,1.197c-3.421,2.027-6.475,4.191-9.15,6.395c-2.213,1.823-4.182,3.668-5.924,5.47 c-1.161,1.201-2.22,2.384-3.184,3.527c-0.964,1.144-1.832,2.25-2.609,3.299c-0.778,1.049-1.464,2.04-2.065,2.955 c-0.557,0.848-1.033,1.622-1.447,2.324c-0.033,0.056-0.073,0.119-0.104,0.174c-0.435,0.744-0.79,1.392-1.07,1.926 c-0.559,1.068-0.818,1.678-0.818,1.678v0.398c18.285,17.927,43.322,28.985,70.945,28.985c27.678,0,52.761-11.103,71.055-29.095 v-0.289c0,0-0.619-1.45-1.992-3.778C174.594,173.238,174.117,172.463,173.561,171.615z"></path><path fill="#FFFFFF" class="primary" d="M106.002,125.5c2.645,0,5.212-0.253,7.68-0.737c1.234-0.242,2.443-0.542,3.624-0.896 c1.772-0.532,3.482-1.188,5.12-1.958c2.184-1.027,4.242-2.258,6.15-3.67c2.863-2.119,5.39-4.646,7.509-7.509 c0.706-0.954,1.367-1.945,1.98-2.971c0.919-1.539,1.729-3.155,2.422-4.84c0.462-1.123,0.872-2.277,1.226-3.458 c0.177-0.591,0.341-1.188,0.49-1.792c0.299-1.208,0.542-2.443,0.725-3.701c0.275-1.887,0.417-3.827,0.417-5.811 c0-1.984-0.142-3.925-0.417-5.811c-0.184-1.258-0.426-2.493-0.725-3.701c-0.15-0.604-0.313-1.202-0.49-1.793 c-0.354-1.181-0.764-2.335-1.226-3.458c-0.693-1.685-1.504-3.301-2.422-4.84c-0.613-1.026-1.274-2.017-1.98-2.971 c-2.119-2.863-4.646-5.39-7.509-7.509c-1.909-1.412-3.966-2.643-6.15-3.67c-1.638-0.77-3.348-1.426-5.12-1.958 c-1.181-0.355-2.39-0.655-3.624-0.896c-2.468-0.484-5.035-0.737-7.68-0.737c-21.162,0-37.345,16.183-37.345,37.345 C68.657,109.317,84.84,125.5,106.002,125.5z"></path></g></svg>
+                     </div>
+                     <div id ="headerChatName"></div>
+                </div>
+                <div id="messages">
+                </div>
+                <div id="typingStatus"></div>
+                
+                <div id="footer">
+                    <div id="formDiv">
+                        <span id="attachment" onclick="triggerFileSend()"><svg class="hover-element" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 280.067 280.067" xml:space="preserve" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:currentColor;" d="M149.823,257.142c-31.398,30.698-81.882,30.576-113.105-0.429 c-31.214-30.987-31.337-81.129-0.42-112.308l-0.026-0.018L149.841,31.615l14.203-14.098c23.522-23.356,61.65-23.356,85.172,0 s23.522,61.221,0,84.586l-125.19,123.02l-0.044-0.035c-15.428,14.771-40.018,14.666-55.262-0.394 c-15.244-15.069-15.34-39.361-0.394-54.588l-0.044-0.053l13.94-13.756l69.701-68.843l13.931,13.774l-83.632,82.599 c-7.701,7.596-7.701,19.926,0,27.53s20.188,7.604,27.88,0L235.02,87.987l-0.035-0.026l0.473-0.403 c15.682-15.568,15.682-40.823,0-56.39s-41.094-15.568-56.776,0l-0.42,0.473l-0.026-0.018l-14.194,14.089L50.466,158.485 c-23.522,23.356-23.522,61.221,0,84.577s61.659,23.356,85.163,0l99.375-98.675l14.194-14.089l14.194,14.089l-14.194,14.098 l-99.357,98.675C149.841,257.159,149.823,257.142,149.823,257.142z"></path> </g> </g></svg></span>
+                        <input style="display: none; color: #54656f;" type="file" id="attchmentInput" accept="image/*" onchange="sendFile(event)">
+                        <form id="form" action="">                            
+                            <input id="input" autocomplete="off" onkeyup="debouncedHandleTyping()">
+                            <button class ="sendbutton" >
+                                <svg class="hover-element" viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>send</title><path fill="currentColor" d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z"></path></svg>
+                            </button>
+                        </form>
+                    </div>               
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+    <!-- <button id="triggerNotificationBtn">Trigger Notification</button> -->
+    <!-- <script>
+        // Check if the Notification API is supported by the browser
+        if ("Notification" in window) {
+          // Request permission to show notifications
+          Notification.requestPermission().then(permission => {
+            console.log(permission);
+          });
+      
+          // Function to display a notification
+          function showNotification(message) {
+            // Check if the user has granted permission
+            if (Notification.permission === "granted") {
+              // Create a notification
+              var notification = new Notification("Event Notification", {
+                body: "hello"
+               // You can provide the path to an image for the notification
+              });
+      
+              // Close the notification after a certain time (e.g., 5 seconds)
+              setTimeout(() => {
+                notification.close();
+              }, 5000);
+            }
+          }
+      
+          // Example: Triggering a notification on a button click
+          document.getElementById("triggerNotificationBtn").addEventListener("click", function() {
+            showNotification("Something happened in the tab!");
+          });
+        } else {
+          console.log("Notification API not supported in this browser");
+        }
+      </script> -->
+      
+
+
+</body>
+
+</html>
