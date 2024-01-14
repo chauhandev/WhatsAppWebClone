@@ -680,7 +680,6 @@ function handleResize() {
             userPane.style.display = 'none';         
         }
         else{
-            // userPane.style.display = 'none';
             emptyBox.style.display = 'none';
         }
     }
@@ -689,7 +688,7 @@ function handleResize() {
         if (userPane.style.display === 'none') 
             userPane.style.display = 'flex';
         else{
-            if(chatPane.style.display === 'none')
+            if(chatBox.style.display === 'none')
                emptyBox.style.display = 'flex';
         }
     }
