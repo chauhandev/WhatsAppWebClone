@@ -227,6 +227,8 @@ function submitUsername() {
                         if (window.innerWidth < MediaQuery) {
                             const userPane = document.getElementById('userPane');
                              userPane.style.display = 'none';
+                             const backButton = document.getElementById('backButton');
+                             backButton.style.display = 'block';
                         }
 
                         var activeGroupdivs = document.getElementById("activeGroupList").getElementsByClassName("chat");
@@ -295,6 +297,12 @@ function submitUsername() {
                         var userChatdivs = document.getElementById("onlineUserList").getElementsByClassName("chat");
                         for (var i = 0; i < userChatdivs.length; i++) {
                             userChatdivs[ i ].classList.remove("selected");
+                        }
+                        if (window.innerWidth < MediaQuery) {
+                            const userPane = document.getElementById('userPane');
+                             userPane.style.display = 'none';
+                             const backButton = document.getElementById('backButton');
+                             backButton.style.display = 'block';
                         }
                         // Add 'selected' class to the clicked div
                         divParent.classList.add("selected");
@@ -661,6 +669,15 @@ function swithtoUsers(){
       chatBox.style.display = 'none';
       const userPane = document.getElementById('userPane');
       userPane.style.display = 'flex';
+
+      const activeGroupdivs = document.getElementById("activeGroupList").getElementsByClassName("chat");
+      for (var i = 0; i < activeGroupdivs.length; i++) {
+          activeGroupdivs[ i ].classList.remove("selected");
+      }
+      const userChatdivs = document.getElementById("onlineUserList").getElementsByClassName("chat");
+      for (var i = 0; i < userChatdivs.length; i++) {
+          userChatdivs[ i ].classList.remove("selected");
+      }
       
 }
 
