@@ -587,6 +587,8 @@ function createGroup(){
         socket.emit(Actions.CREATEGROUP,msg);
     
         input.value = "";
+        const groupDiv = document.getElementById('createGroup');
+        groupDiv.style.display = 'none';
     }
     
 }
@@ -709,4 +711,33 @@ function handleResize() {
                emptyBox.style.display = 'flex';
         }
     }
+}
+
+function showMenu(){
+    const menuDiv = document.getElementById('menuDiv');
+    menuDiv.style.display = 'flex';
+
+}
+
+function ShowCreateGroupBox(){
+    const menuDiv = document.getElementById('menuDiv');
+    menuDiv.style.display = 'none';
+    const groupDiv = document.getElementById('createGroup');
+    groupDiv.style.display = 'flex';
+      
+}
+
+function logOut(){
+    const menuDiv = document.getElementById('menuDiv');
+    menuDiv.style.display = 'none';
+    containerDiv.style.display = "none";
+    signUp.style.display = "flex";
+    UserPrivateChat = [];
+    GroupChat = [];
+    
+}
+
+function settings(){
+    const menuDiv = document.getElementById('menuDiv');
+    menuDiv.style.display = 'none';
 }
