@@ -587,8 +587,13 @@ function createGroup(){
         socket.emit(Actions.CREATEGROUP,msg);
     
         input.value = "";
-        const groupDiv = document.getElementById('createGroup');
-        groupDiv.style.display = 'none';
+        // const groupDiv = document.getElementById('createGroup');
+        // groupDiv.style.display = 'none';
+
+        const userane2 = document.getElementById('userPane2');
+        userane2.style.display = 'none';
+        const userane = document.getElementById('userPane');
+        userane.style.display = 'flex';
     }
     
 }
@@ -724,7 +729,10 @@ function ShowCreateGroupBox(){
     menuDiv.style.display = 'none';
     const groupDiv = document.getElementById('createGroup');
     groupDiv.style.display = 'flex';
-      
+     const userane1 = document.getElementById('userPane');
+    userane1.style.display = 'none';
+    const userane2 = document.getElementById('userPane2');
+    userane2.style.display = 'flex';  
 }
 
 function logOut(){
@@ -733,11 +741,19 @@ function logOut(){
     containerDiv.style.display = "none";
     signUp.style.display = "flex";
     UserPrivateChat = [];
-    GroupChat = [];
+    GroupChat = [];  
     
 }
 
 function settings(){
     const menuDiv = document.getElementById('menuDiv');
     menuDiv.style.display = 'none';
+}
+
+function hideCreateGroupDiv(){
+    const userane2 = document.getElementById('userPane2');
+    userane2.style.display = 'none';
+    const userane = document.getElementById('userPane');
+    userane.style.display = 'flex';
+    
 }

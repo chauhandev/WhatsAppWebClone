@@ -151,7 +151,7 @@ body {
     background-color: #efeae2;
 }
 
-#userPane {
+.userPane {
     flex: 0 0 22%;
     overflow-y: auto; 
     background-color: white;
@@ -283,17 +283,24 @@ body {
 }
 
 .createGroupinputBox{
+    width: 100%;
+    display: inline-block;
     border: none;
-    border-bottom: 2px solid #f0f2f5;
-    background:  #008069;
-    color: #f0f2f5;
+    line-height: 22px;
+    height: auto;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: none;
+    border-top: none;
+    font-family: Segoe UI, Helvetica Neue, Helvetica, Lucida Grande, Arial, Ubuntu, Cantarell, Fira Sans, sans-serif;
+    
 }
 .createGroupinputBox:focus{
     outline: none;
     border-bottom: 3px solid #f0f2f5;
 }
 .createGroupinputBox::placeholder {
-    color: #f0f2f5; 
+    /* color: #f0f2f5;  */
   }
 
 .btn{
@@ -307,10 +314,10 @@ body {
 }
 
 #createGroup{
-    display: none;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 .grpbtn{
     background-color:#f0f2f5;
@@ -432,7 +439,7 @@ body {
     background-color: #F5F6F6;
 }
 @media only screen and (max-width: 768px) {
-    #userPane, #chatBox {
+    #userPane,#userPane2, #chatBox {
         flex: 1;
         width: 100%;
     }
@@ -440,7 +447,7 @@ body {
         display: block;
     }
 
-    #userPane {
+    #userPane ,#userPane2{
         display: flex;
     }
 

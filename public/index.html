@@ -36,7 +36,7 @@
             </div>            
         </div>
         <div id="container" style="display:none;">
-            <div id="userPane" style ="display:flex; flex-direction: column;">
+            <div id="userPane" class="userpane" style ="display:flex; flex-direction: column;">
                 <div id = "header">
                     <div class="profile-picture" onclick="triggerUpload()">
                         <img src="images/defaultImage.svg" alt="Profile Picture" id="profilePicture" >
@@ -65,13 +65,28 @@
                 </div>
                 <div id="ActiveGroups">
                     <div id="onlineText" class="chatTypeHeader">Groups
-                        <div id="createGroup">
+                        <!-- <div id="createGroup">
                                 <input id="createGroupInput" class = "createGroupinputBox" style="width: 65%;" type="text" placeholder="Enter Group Name">
                                 <button class="btn grpbtn" onclick="createGroup()">Create</button>                              
-                        </div>                     
+                        </div>                      -->
                     </div>
                     
                     <div id="activeGroupList" class="list"></div>
+                </div>
+            </div>
+            <div id="userPane2" class="userpane" style ="display:none; flex-direction: column;">
+                   <div >
+                    <div id="onlineText" class="chatTypeHeader">
+                        <div style=" height: 24px; width: 24px; color: #fff;" onclick="hideCreateGroupDiv()">
+                            <svg class = "hover-element" height="24px" width="24px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon style="fill:currentColor;" points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg> 
+                        </div>
+                        <div>Create Group</div>            
+                                            
+                    </div>
+                    <div id="createGroup">
+                        <input id="createGroupInput" class = "createGroupinputBox" type="text" placeholder="Enter Group Name" placeholder-style="color: green;">
+                        <button class="btn grpbtn" onclick="createGroup()">Create</button>                              
+                     </div> 
                 </div>
             </div>
             <div id="emptyBox">
@@ -79,7 +94,7 @@
             </div>
             <div id="chatBox" >
                 <div id ="header">
-                    <div id = "backButton" onclick="swithtoUsers()">
+                    <div id = "backButton" class="backButton" onclick="swithtoUsers()">
                         <svg class = "hover-element" height="24px" width="24px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon style="fill:currentColor;" points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg> 
                     </div>
                     <div>
