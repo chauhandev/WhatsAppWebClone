@@ -8,7 +8,8 @@ const Actions = {
     AVAILABLEGROUPS: 'availablegroups',
     TYPINGSTATUS: 'typingstatus',
     JOINGROUP:'joingroup',
-    CREATEGROUP:'creategroup'
+    CREATEGROUP:'creategroup',
+    LOGOUT:'logout'
 }
 module.exports = Actions;
 

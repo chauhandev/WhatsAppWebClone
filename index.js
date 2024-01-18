@@ -101,6 +101,25 @@ io.on('connection', (socket) => {
           io.to(socket.id).emit('groupNotFound');
         }
       });
+
+      socket.on(Actions.LOGOUT, () => {
+        if (connectedUsers[socket.id]) {
+            const disconnectedUsername = connectedUsers[socket.id].userName;
+            delete connectedUsers[socket.id];  
+            if (Object.keys(connectedUsers).length === 0) {
+                groups.length = 0;
+            } 
+            io.emit(Actions.USERDISCONNECTED, `${disconnectedUsername} Disconnected`);
+            socket.broadcast.emit(Actions.USERSONLINE, { connectedUsers });
+        } else {
+            // Handle the case where the user is not found in connectedUsers
+            console.log('Unexpected disconnect: User not found in connectedUsers');
+        }
+    });
+
+    socket.on('close', () => {
+       console.log('connection closed');
+    });
 });
 
 app.use(express.static(path.resolve("./public")))

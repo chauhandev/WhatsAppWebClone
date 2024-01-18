@@ -151,10 +151,11 @@ body {
     background-color: #efeae2;
 }
 
-.userPane {
-    flex: 0 0 22%;
+#userPane ,#userPane2{
+    flex: 0 0 300px;
     overflow-y: auto; 
     background-color: white;
+    width: 300px;
 }
 
 #onlineUsers{
@@ -265,7 +266,6 @@ body {
     height: 40px;
     border-radius: 50px;
     display: flex;
-    overflow: hidden;
 }
 #previewImage{
     WIDTH: 40px;
@@ -299,9 +299,6 @@ body {
     outline: none;
     border-bottom: 3px solid #f0f2f5;
 }
-.createGroupinputBox::placeholder {
-    /* color: #f0f2f5;  */
-  }
 
 .btn{
     background-color: #008069;

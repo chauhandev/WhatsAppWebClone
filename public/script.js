@@ -26,7 +26,8 @@ const Actions = {
     AVAILABLEGROUPS: 'availablegroups',
     TYPINGSTATUS: 'typingstatus',
     JOINGROUP:'joingroup',
-    CREATEGROUP:'creategroup'
+    CREATEGROUP:'creategroup',
+    LOGOUT:'logout'
 };
   
 
@@ -587,9 +588,6 @@ function createGroup(){
         socket.emit(Actions.CREATEGROUP,msg);
     
         input.value = "";
-        // const groupDiv = document.getElementById('createGroup');
-        // groupDiv.style.display = 'none';
-
         const userane2 = document.getElementById('userPane2');
         userane2.style.display = 'none';
         const userane = document.getElementById('userPane');
@@ -696,21 +694,32 @@ function handleResize() {
     const userPane = document.getElementById('userPane');
     const chatBox = document.getElementById('chatBox');
     const emptyBox = document.getElementById('emptyBox');
+    const container = document.getElementById('container');
 
     // Check if the screen width is less than 768
     if (screenWidth <= MediaQuery) {       
-        if (chatBox.style.display === 'flex') {
-            backButton.style.display = 'flex';  
-            userPane.style.display = 'none';         
-        }
-        else{
-            emptyBox.style.display = 'none';
-        }
+         if (chatBox.style.display === 'flex'){
+            backButton.style.display = 'flex'; 
+            for (let i = 0; i < container.children.length; i++){
+                if(container.children[i].id != 'chatBox'){
+                    container.children[i].style.display = 'none';
+                }
+            }
+        }else{
+            for (let i = 0; i < container.children.length; i++){
+                if(container.children[i].id === 'emptyBox'){
+                    container.children[i].style.display = 'none';
+                    break;
+                }
+            }
+        }          
+
     }
     else {       
         backButton.style.display = 'none';
-        if (userPane.style.display === 'none') 
+        if (userPane.style.display === 'none' && userPane2.style.display === 'none') {            
             userPane.style.display = 'flex';
+        }
         else{
             if(chatBox.style.display === 'none')
                emptyBox.style.display = 'flex';
@@ -742,6 +751,8 @@ function logOut(){
     signUp.style.display = "flex";
     UserPrivateChat = [];
     GroupChat = [];  
+    socket.emit(Actions.LOGOUT);
+    socket.close();
     
 }
 
